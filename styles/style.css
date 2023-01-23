@@ -1,0 +1,111 @@
+:root{
+--clr-primary-gradient: linear-gradient(hsl(249, 99%, 64%), hsl(278, 94%, 30%));
+--clr-secondary: hsl(0, 100%, 66%);
+
+--clr-neutral-100: hsl(0, 0%, 100%);
+--clr-neutral-200: hsl(270, 3%, 87%);
+--clr-neutral-300: hsl(279, 6%, 55%);
+--clr-neutral-400: hsl(278, 68%, 11%);
+
+--size-100: 2rem;
+}
+
+*, *::before, *::after{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img{
+  max-width: 100%;
+  display: block;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+body{
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+}
+
+.content-grid{
+  display: grid;
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+}
+
+.content-grid > *{
+  /* border: 2px solid orangered; */
+}
+
+/* cards container */
+.cards{
+  background-image: url(../images/bg-main-mobile.png);
+  /* display: block; */
+  background-size: cover;
+  position: relative;
+}
+
+
+/* card front container */
+.card__front,
+.card__back{
+  color: var(--clr-neutral-100);
+  position: absolute;
+  width: min-content;
+} 
+
+.card__front{
+  z-index: 2;
+  top: 35%;
+}
+
+.card__back{
+  right: 0;
+}
+
+/* card__front-gb will defined the space */
+.card__front > *:not(.card__front-bg), .card__back>*:not(.card__back-bg) {
+  position: absolute;
+}
+
+.card__front-bg, .card__back-bg{
+  max-width: revert; /* revert will go back to what it was before */
+}
+
+.card__front-logo{
+  top: var(--size-100);
+  left: var(--size-100);
+}
+
+.card__front-numbers{
+  font-size: 1.9rem;
+  top: 50%;
+  left: var(--size-100);
+}
+
+.card__name{
+  bottom: var(--size-100);
+  left: var(--size-100);
+}
+
+.card__expired-date{
+  bottom: var(--size-100);
+  right: var(--size-100);
+}
+
+.card__back-cvc{
+  right: 5.5rem;
+  top: 44%;
+}
+
+@media(min-width: 960px){
+  .content-grid {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+}
