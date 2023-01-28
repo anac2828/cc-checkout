@@ -1,111 +1,168 @@
-:root{
---clr-primary-gradient: linear-gradient(hsl(249, 99%, 64%), hsl(278, 94%, 30%));
---clr-secondary: hsl(0, 100%, 66%);
+:root {
+  /* either --dark-mode or --no-dark-mode */
+  --color-scheme: var(--dark-mode);
 
---clr-neutral-100: hsl(0, 0%, 100%);
---clr-neutral-200: hsl(270, 3%, 87%);
---clr-neutral-300: hsl(279, 6%, 55%);
---clr-neutral-400: hsl(278, 68%, 11%);
+  --font-family: "Space Grotesk", sans-serif;
+  --fs-400: 1rem;
+  --fs-500: 1.125rem;
+  --fw-regular: 400;
+  --fw-semi-bold: 500;
 
---size-100: 2rem;
+  --clr-neutral-100: hsl(0, 0%, 100%);
+    --clr-neutral-200: hsl(270, 3%, 87%);
+    --clr-neutral-300: hsl(279, 6%, 55%);
+  --clr-primary-400: hsl(249, 99%, 64%);
+    --clr-primary-500: hsl(278, 94%, 30%);
+    --clr-primary-800: hsl(278, 68%, 11%);
+    --clr-accent-400: hsl(0, 100%, 66%);
+    --gradient-1: var(--clr-primary-400, --clr-primary-500);
+
+  /* settings */
+    --no-dark-mode: light;
+    --dark-mode: dark light;
 }
 
-*, *::before, *::after{
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
-img{
+html {
+  color-scheme: var(--color-scheme);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+    font-size: var(--fs-400);
+    line-height: 1.6;
+}
+
+.container {
+  width: min(50rem, 100% - 2rem);
+  margin-inline: auto;
+}
+
+.site-title {
+  font-size: var(--fs-900);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-size: var(--fs-800);
+  line-height: 1.1;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.form {
+  background: hsl(0 0% 50% / 0.2);
+  display: grid;
+  place-content: center;
+  }
+  
+  .content-grid {
+    max-inline-size: 1200px;
+    padding-inline: 2rem;
+    margin-inline: auto;
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+  display: grid;
+}
+
+@media (min-width: 960px) {
+  .content-grid {
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+img {
   max-width: 100%;
   display: block;
 }
 
-html{
-  font-size: 62.5%;
-}
-
-body{
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.8rem;
-}
-
-.content-grid{
-  display: grid;
-  min-block-size: 100vh;
-  min-block-size: 100dvh;
-}
-
-.content-grid > *{
-  /* border: 2px solid orangered; */
-}
-
-/* cards container */
-.cards{
-  background-image: url(../images/bg-main-mobile.png);
-  /* display: block; */
-  background-size: cover;
+.cards {
   position: relative;
 }
 
+.card__front {
+  --card-padding: 2rem;
 
-/* card front container */
-.card__front,
-.card__back{
-  color: var(--clr-neutral-100);
-  position: absolute;
-  width: min-content;
-} 
-
-.card__front{
   z-index: 2;
   top: 35%;
 }
 
-.card__back{
+.card__back {
   right: 0;
 }
 
-/* card__front-gb will defined the space */
-.card__front > *:not(.card__front-bg), .card__back>*:not(.card__back-bg) {
+.card__front,
+.card__back {
+  position: absolute;
+  width: min-content;
+}
+
+.card__front>*:not(.card__front-bg),
+.card__back>*:not(.card__back-bg) {
   position: absolute;
 }
 
-.card__front-bg, .card__back-bg{
-  max-width: revert; /* revert will go back to what it was before */
+.card__front-bg,
+.card__back-bg {
+  max-width: revert;
 }
 
-.card__front-logo{
-  top: var(--size-100);
-  left: var(--size-100);
+.card__front-logo {
+  top: var(--card-padding);
+  left: var(--card-padding);
 }
 
-.card__front-numbers{
-  font-size: 1.9rem;
+.card__front-numbers {
   top: 50%;
-  left: var(--size-100);
+  left: var(--card-padding);
+    font-size: 1.925rem;
 }
 
-.card__name{
-  bottom: var(--size-100);
-  left: var(--size-100);
+.card__name {
+  bottom: var(--card-padding);
+  left: var(--card-padding);
 }
 
-.card__expired-date{
-  bottom: var(--size-100);
-  right: var(--size-100);
+.card__expired-date {
+  right: var(--card-padding);
+  bottom: var(--card-padding);
 }
 
-.card__back-cvc{
-  right: 5.5rem;
+.card__back-cvc {
+  right: 3.5rem;
   top: 44%;
 }
 
-@media(min-width: 960px){
-  .content-grid {
-      display: grid;
-      align-items: center;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+@media (min-width: 960px) {
+  .cards {
+    display: grid;
+    gap: 2rem;
+    }
+    
+    .card__front,
+    .card__back {
+      inset: revert;
+      position: relative;
+    }
+    
+    .card__back {
+      margin-left: auto;
     }
 }

@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles/style-new.css">  
+<script src="/js/script.js" defer></script>
 
   <title>Frontend Mentor | Interactive card details form</title>
 
@@ -36,21 +37,21 @@
     <form action="" class="form">
       <div class="form__group">
         <label for="name">Cardholder name</label>
-        <input type="text" class="form__input" placeholder="e.g. Jane Appleseed" name="name">
+        <input type="text" class="form__input" placeholder="e.g. Jane Appleseed" name="name" required>
       </div>
       <div class="form__group">
         <label for="card-number">Card number</label>
-        <input type="text" class="form__input" placeholder="e.g. 1234 5678 9123 000" name="card number">
+        <input type="tel" class="form__input" placeholder="e.g. 1234 5678 9123 0000" name="card number" inputmode="numeric" pattern="[0-9\s]{13,19}" maxlength="19" required>
       </div>
       <div class="form__group">
         <div class="form__date-exp">
           <label for="exp-date">Exp. date (mm/yy)</label>
-          <input type="text" class="form__input" placeholder="MM" name="exp-date">
-          <input type="text" class="form__input" placeholder="YY" name="exp-date">
+          <input type="text" class="form__input" placeholder="MM" name="exp-date" required>
+          <input type="text" class="form__input" placeholder="YY" name="exp-date" required>
         </div>
         <div class="form__cvc">
           <label for="cvc">cvc</label>
-          <input type="text" class="form__input" placeholder="e.g. 123" name="cvc">
+          <input type="text" class="form__input" placeholder="e.g. 123" name="cvc" required>
         </div>
       </div>
 

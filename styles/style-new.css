@@ -8,6 +8,13 @@
 --clr-neutral-400: hsl(278, 68%, 11%);
 
 --size-100: 2rem;
+--card-padding: 1.5rem;
+  --card-margin-sm: 1.5rem;
+  --card-margin-md: 4rem;
+  --card-margin-lg: 8rem;
+  --card-margin-xl: 16rem;
+
+  --box-shadow: 1px 2px 3rem rgba(0, 0, 0, .2)
 }
 
 *, *::before, *::after{
@@ -25,88 +32,109 @@ html{
   font-size: 62.5%;
 }
 
+@media(min-width: 75em){
+  html {
+      font-size: 75%;
+    }
+}
+
 body{
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.8rem;
+  /* font-size: 1.8rem; */
 }
 
 .content-grid{
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
   display: grid;
-  grid-template-rows: min-content 1fr;
-}
-
-.content-grid > *{
-  
+  gap: 7rem;
+    grid-template-rows: 24rem 1fr;
 }
 
 /* cards container */
-.cards{
-  border: 1px solid greenyellow;
+.cards {
   background-image: url(../images/bg-main-mobile.png);
   background-size: cover;
+  /* height: 100%; */
   color: var(--clr-neutral-100);
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  align-items: center;
+  /* position: relative; */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 
-/* card front container */
+/* card info container */
 .card__front,
-.card__back{
- 
-} 
+.card__back {
+  position: absolute;
+  width: min-content;
+  box-shadow: var(--box-shadow);
+  border-radius: 1rem;
+}
 
-.card__front{
-  position: relative;
-  grid-column: 2 / -1;
-  grid-row: 3 / -1;
-  height: 68%;
-  width: 93%;
+.card__front {
   z-index: 10;
+  /* top: 12.2rem;
+    left: var(--card-margin-sm); */
 }
 
 .card__back{
-  position: relative;
-  grid-column: 2 / -1;
-  grid-row: 2 / 5;
-  height: 114%;
-  width: 93%;
+  /* top: 3.25rem; */
+    /* right: var(--card-margin-sm); */
 }
+
+.card__front {
+  transform: translate(-25%, 30%);
+}
+
+.card__back {
+  transform: translate(25%, -30%);
+}
+
+.card__back-bg,
+.card__front-bg {
+  width: 28.5rem;
+  max-width: revert;
+}
+
 
 /* card__front-gb will defined the space */
-.card__front > *:not(.card__front-bg) {
-
+.card__front>*:not(.card__front-bg) {
   position: absolute;
-  top: 0;
- 
 }
-
-.card__front-bg, .card__back-bg{
- 
-}
-
 .card__front-logo{
- 
+  top: var(--card-padding);
+    left: var(--card-padding);
+    width: 20%;
 }
-
 .card__front-numbers{
- 
+  font-size: 1.8rem;
+  top: 52%;
+    letter-spacing: 2.5px;
+    left: var(--card-padding);
+  }
+
+.card__name,
+.card__expired-date {
+  letter-spacing: 1px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  bottom: var(--card-padding);
 }
 
-.card__name{
- 
+.card__name {
+  left: var(--card-padding);
 }
 
 .card__expired-date{
- 
+right: var(--card-padding);
 }
 
 .card__back-cvc{
   position: absolute;
-  top: 9.5rem;
-  right: 4rem;
+  top: 44%;
+    right: 12%;
   letter-spacing: 1px;
   font-size: 1.3rem;
 }
@@ -115,17 +143,13 @@ body{
 /* FORM ************** */
 
 .card-form{
-  border: 1px solid blue;
-  /* width: min-content; */
-  /* justify-self: center; */
+justify-self: center;
+  align-self: center;
 }
-
-.form{
-  /* width: 100%; */
+.form {
   display: grid;
   gap: 2rem;
-  border: 1px solid pink;
-  padding: 3.5rem;
+    width: 33rem;
 }
 
 .form__group label{
@@ -134,7 +158,7 @@ body{
   text-transform: uppercase;
   color: var(--clr-neutral-400);
   margin-bottom: .5rem;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 .form__input, .form__btn{
@@ -144,13 +168,30 @@ body{
 }
 
 .form__input{
+  outline: none;
   display: block;
   border: 1px solid var(--clr-neutral-200);
+  font-family: inherit;
+  font-size: 1.6rem;
 }
 
 .form__input::placeholder{
   color: var(--clr-neutral-300);
   font-size: 1.6rem;
+  letter-spacing: .75px;
+}
+
+.form__input:valid{
+  border-image: linear-gradient(to right, hsl(249, 99%, 64%), hsl(278, 94%, 30%));
+  border-width: 1px;
+  border-image-slice: 1;
+  outline: none;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.form__input:focus:invalid{
+  border: 1px solid var(--clr-secondary);
 }
 
 .form__date-exp input{
@@ -179,8 +220,54 @@ body{
 }
 
 
-@media(min-width: 960px){
+/* MEDIA QUERIES */
+
+/* 600px */
+@media(min-width: 37.50em) {
+
+  /* .card__front {
+    left: var(--card-margin-lg);
+  }
+
+  .card__back {
+    right: var(--card-margin-lg);
+  } */
+
+
+}
+
+/* 800px */
+@media(min-width: 50em) {
   .content-grid {
+    grid-template-columns: 35vw 1fr;
+    grid-template-rows: auto;
+    gap: 0;
+  }
+
+  .cards{
+    background-image: url(../images/bg-main-desktop.png);
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
+  .card__front, .card__back {
+    inset: unset;
+  }
+
+  .card__front{
+    transform: translate(25%, -85%);
+  }
+
+  .card__back{
+    transform: translate(40%, 35%);
+  }
+
   
-    }
+  .card__name, .card__expired-date, .card__back-cvc{
+    font-size: 1.1rem;
+  }
+}
+/* 1200px */
+@media(min-width: 75em){
+  
 }
