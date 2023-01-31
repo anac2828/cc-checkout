@@ -24,7 +24,8 @@
       <img src="/images/card-logo.svg" alt="card logo" class="card__front-logo">
       <span class="card__front-numbers">0000 0000 0000 0000</span>
       <span class="card__name">Jane Appleseed</span>
-      <span class="card__expired-date">00/00</span>
+      
+      <p class="card__expired-date"><span class="cc-month">00</span>/<span class="cc-year">00</span></p>
     </div>
 
     <div class="card__back">
@@ -46,8 +47,8 @@
       <div class="form__group">
         <div class="form__date-exp">
           <label for="exp-date">Exp. date (mm/yy)</label>
-          <input type="text" class="form__input" placeholder="MM" name="exp-date" required>
-          <input type="text" class="form__input" placeholder="YY" name="exp-date" required>
+          <input type="text" class="form__input" id="exp-month" placeholder="MM" name="exp-date" required>
+          <input type="text" class="form__input" id="exp-year" placeholder="YY" name="exp-date" required>
         </div>
         <div class="form__cvc">
           <label for="cvc">cvc</label>
