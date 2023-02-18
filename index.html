@@ -22,15 +22,15 @@
     <div class="card__front">
       <img src="/images/bg-card-front.png" alt="card front" class="card__front-bg">
       <img src="/images/card-logo.svg" alt="card logo" class="card__front-logo">
-      <span class="card__front-numbers">0000 0000 0000 0000</span>
-      <span class="card__name">Jane Appleseed</span>
+      <span class="card__front-numbers" data-form-input="card number">0000 0000 0000 0000</span>
+      <span class="card__name" data-form-input="name">Jane Appleseed</span>
       
-      <p class="card__expired-date"><span class="cc-month">00</span>/<span class="cc-year">00</span></p>
+      <p class="card__expired-date" data-form-input="exp-month"><span class="cc-month">00</span>/<span class="cc-year" data-form-input="exp-year">00</span></p>
     </div>
 
     <div class="card__back">
       <img src="/images/bg-card-back.png" alt="card front" class="card__back-bg">
-      <span class="card__back-cvc">000</span>
+      <span class="card__back-cvc" data-form-input="cvc">000</span>
     </div>
   </article>
 
@@ -52,7 +52,7 @@
         <div class="form__date-exp">
           <label for="exp-date">Exp. date (mm/yy)</label>
           <input type="text" class="form__input" id="exp-date" placeholder="MM" name="exp-month" maxlength="2">
-          <input type="text" class="form__input" id="exp-date" placeholder="YY" name="exp-year" maxlength="2">
+          <input type="text" class="form__input" id="exp-year" placeholder="YY" name="exp-year" maxlength="2">
         </div>
         <!-- CVC -->
         <div class="form__cvc">
