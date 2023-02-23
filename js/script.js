@@ -45,106 +45,47 @@ function displayError(message = "Can't be blank", key) {
 }
 
 function removeError(target) {
-  console.log(target.parentElement);
-  target.parentElement;
+  if (target.parentElement.children[0].tagName === "BUTTON") return;
+  const alert = target.parentElement.querySelector(".alert");
+  if (!alert) return;
+  target.classList.remove("invalid");
+  alert.remove();
 }
 
 //******* EVENT LISTENERS
 
-// // update credit card number
-// ccInput.addEventListener("input", () => {
-//   const possibleCCNumberLength = [4, 9, 14];
-//   const possibleAMXNumberLength = [4, 11];
-
-//   // UPDATE CREDIT CARD with user entered info
-//   ccFrontNum.textContent = ccInput.value;
-
-//   // FORMAT CREDIT CARD
-//   if (!ccInput.value.startsWith("3")) {
-//     ccInput.maxLength = 19;
-//     return (ccInput.value = formatCCNumber(
-//       possibleCCNumberLength,
-//       ccInput
-//     ));
-//   }
-
-//   ccInput.maxLength = 17;
-//   return (ccInput.value = formatCCNumber(
-//     possibleAMXNumberLength,
-//     ccInput
-//   ));
-// });
-
-// // update name
-// nameInput.addEventListener("input", event => {
-//   removeError(event.target);
-//   ccName.textContent = nameInput.value;
-// });
-
-// // update experation date
-
-// expMonthInput.addEventListener("input", () => {
-//   ccExpMonth.textContent = expMonthInput.value;
-// });
-
-// expYearInput.addEventListener("input", () => {
-//   ccExpYear.textContent = expYearInput.value;
-// });
-
-// // update cvc
-// cvcInput.addEventListener("input", () => {
-//   ccCVC.textContent = cvcInput.value;
-// });
-
-// const formData = new FormData(form);
-
-// for (const [key, value] of formData.entries()) {
-//   let cardElement = document.querySelector(
-//     `[data-form-input="${key}"]`
-//   );
-//   let formInput = document.querySelector(`[name="${key}"]`);
-
-//   formInput.addEventListener("input", () => {
-//     console.log("event listener: ", value);
-//     cardElement.textContent = value;
-//   });
-// }
-
 ["input", "click"].forEach(e => {
   form.addEventListener(e, event => {
-    let CCNumber;
     const elementName = event.target.tagName;
-    const selectedFormInput = event.target;
-
-    if (elementName != "INPUT") return;
+    const input = event.target;
+    removeError(input);
+    if (elementName && event.type.toUpperCase() != "INPUT") return;
 
     // Get input value
-    selectedFormInput.addEventListener("input", event => {
-      const input = event.target;
-      const inputAttribute = input.attributes.name.value;
-      const cardElement = document.querySelector(
-        `[data-form-input="${inputAttribute}"]`
-      );
-      console.log(event.type, inputAttribute);
-      console.log(event.target);
-      console.log(cardElement);
-      // Format CC number
-      if (inputAttribute === "card number") {
-        const cardType = input.value.startsWith("3")
-          ? "amx"
-          : "other";
+    const inputAttribute = input.attributes.name.value;
+    const cardElement = document.querySelector(
+      `[data-form-input="${inputAttribute}"]`
+    );
 
-        input.maxLength = cardType === "amx" ? 17 : 19;
-        const possibleCCNumberLength =
-          cardType === "amx" ? [4, 11] : [4, 9, 14];
+    // Format CC number
+    if (inputAttribute === "card number") {
+      let CCNumber;
+      const cardType = input.value.startsWith("3") ? "amx" : "other";
+      const possibleCCNumberLength =
+        cardType === "amx" ? [4, 11] : [4, 9, 14];
 
-        CCNumber = formatCCNumber(possibleCCNumberLength, input);
-        cardElement.textContent = CCNumber;
-      }
+      input.maxLength = cardType === "amx" ? 17 : 19;
 
-      // change text content on front and back of card
-      cardElement.textContent = input.value;
-    });
+      CCNumber = formatCCNumber(possibleCCNumberLength, input);
+      cardElement.textContent = CCNumber;
+    }
+
+    // change text content on front and back of card
+    cardElement.textContent =
+      input.value === ""
+        ? input.placeholder.replace("e.g. ", "")
+        : input.value;
+    console.log(cardElement.textContent);
   });
 });
 

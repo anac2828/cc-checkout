@@ -183,12 +183,10 @@ justify-self: center;
 }
 
 .form__input:focus:valid {
-  border-image: linear-gradient(to right, hsl(249, 99%, 64%), hsl(278, 94%, 30%));
-  border-width: 1px;
-  border-image-slice: 1;
-  outline: none;
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+  background:
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(to right, hsl(249, 99%, 64%) 30%, hsl(278, 94%, 30%));
+    border: 1px solid transparent;
 }
 
 .form__input.invalid {
@@ -200,6 +198,9 @@ justify-self: center;
   margin-top: .5rem;
   color: var(--clr-secondary);
   font-size: 1.10rem;
+}
+.form__date-exp label {
+  display: inline-block;
 }
 .form__date-exp input{
   width: 48%;
