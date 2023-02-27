@@ -37,14 +37,14 @@ function formatCCNumber(
 }
 
 // ERROR HANDLER
-function displayError(message = "Can't be blank", key) {
-  const target = document.querySelector(`input[name="${key}"]`);
+function displayError(message = "Can't be blank", target) {
   const markup = `<span class='alert'>${message}</span>`;
   target.classList.add("invalid");
   target.parentElement.insertAdjacentHTML("beforeend", markup);
 }
 
 function removeError(target) {
+  console.log(target.parentElement);
   if (target.parentElement.children[0].tagName === "BUTTON") return;
   const alert = target.parentElement.querySelector(".alert");
   if (!alert) return;
@@ -85,7 +85,6 @@ function removeError(target) {
       input.value === ""
         ? input.placeholder.replace("e.g. ", "")
         : input.value;
-    console.log(cardElement.textContent);
   });
 });
 
@@ -96,13 +95,18 @@ form.addEventListener("submit", event => {
   const formData = new FormData(form);
 
   for (const [key, value] of formData.entries()) {
+    const target = document.querySelector(`input[name="${key}"]`);
+
+    // check if numeric inputs contain letters
     if (key !== "name" && value.match(/[a-z]/i)) {
+      removeError(target);
       const message = "Wrong format, numbers only";
-      displayError(message, key);
+      displayError(message, target);
     }
     if (value === "") {
+      removeError(target);
       const message = "Can't be blank";
-      displayError(message, key);
+      displayError(message, target);
     }
   }
 });
