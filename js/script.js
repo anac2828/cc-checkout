@@ -1,3 +1,6 @@
+// buttons
+const btnContinue = document.querySelector(".btn-continue");
+
 // form
 const ccInput = document.querySelector('input[name="card number"]');
 const nameInput = document.querySelector('input[name="name"]');
@@ -7,6 +10,7 @@ const expMonthInput = document.querySelector(
 const expYearInput = document.querySelector('input[name="exp-year"]');
 const cvcInput = document.querySelector(`input[name="cvc"]`);
 const form = document.querySelector(".form");
+const formContainer = document.querySelector(".card-form");
 
 // cards
 const ccFrontNum = document.querySelector(".card__front-numbers");
@@ -15,9 +19,18 @@ const ccExpMonth = document.querySelector(".cc-month");
 const ccExpYear = document.querySelector(".cc-year");
 const ccCVC = document.querySelector(".card__back-cvc");
 
-// ERRORS
-const errorEl = document.querySelector(".error");
+// COMPLETE
+const thankYouMessage = document.querySelector(".complete");
 
+// ERRORS
+// const errorEl = document.querySelector(".error");
+
+class AppError extends Error {
+  constructor(errors) {
+    super();
+    this.errors = errors;
+  }
+}
 
 // HELPER FUNCTIONS
 function formatCCNumber(
@@ -37,14 +50,18 @@ function formatCCNumber(
 }
 
 // ERROR HANDLER
-function displayError(message = "Can't be blank", target) {
-  const markup = `<span class='alert'>${message}</span>`;
-  target.classList.add("invalid");
-  target.parentElement.insertAdjacentHTML("beforeend", markup);
+function displayError(errors) {
+  errors.forEach(error => {
+    const markup = `<span class='alert'>${error.message}</span>`;
+    error.target.classList.add("invalid");
+    error.target.parentElement.insertAdjacentHTML(
+      "beforeend",
+      markup
+    );
+  });
 }
 
 function removeError(target) {
-  console.log(target.parentElement);
   if (target.parentElement.children[0].tagName === "BUTTON") return;
   const alert = target.parentElement.querySelector(".alert");
   if (!alert) return;
@@ -88,25 +105,53 @@ function removeError(target) {
   });
 });
 
-// FORM SUBMITION227567
+// FORM SUBMITION
 form.addEventListener("submit", event => {
-  event.preventDefault();
+  try {
+    event.preventDefault();
+    const formData = new FormData(form);
 
-  const formData = new FormData(form);
+    // ERROR HANDLEING
+    removeError(event.target);
+    let errorsArr = [];
+    //
 
-  for (const [key, value] of formData.entries()) {
-    const target = document.querySelector(`input[name="${key}"]`);
+    // CHECK IF INPUT VALUES ARE CORRECT
+    for (const [key, value] of formData.entries()) {
+      const target = document.querySelector(`input[name="${key}"]`);
 
-    // check if numeric inputs contain letters
-    if (key !== "name" && value.match(/[a-z]/i)) {
-      removeError(target);
-      const message = "Wrong format, numbers only";
-      displayError(message, target);
+      // check if numeric inputs contain letters
+      if (key !== "name" && value.match(/[a-z]/i)) {
+        errorsArr.push({
+          target,
+          message: "Wrong format, numbers only",
+        });
+      }
+      // Check for empty fields
+      if (value === "") {
+        errorsArr.push({ target, message: "Can't be blank" });
+      }
     }
-    if (value === "") {
-      removeError(target);
-      const message = "Can't be blank";
-      displayError(message, target);
+    //
+
+    // ERROR HANDLER
+    if (errorsArr.length > 0) {
+      throw new AppError(errorsArr);
     }
+    // IF NO ERRORS CONTINUE TO NEXT PAGE
+    formContainer.setAttribute("data-hidden", true);
+    thankYouMessage.setAttribute("data-hidden", false);
+    //
+
+    // CLEAR FORM
+    form.reset();
+  } catch (error) {
+    displayError(error.errors);
   }
+});
+
+// GO BACK TO THE FORM AFTER WHEN AT THE THANK YOU PAGE
+btnContinue.addEventListener("click", () => {
+  formContainer.setAttribute("data-hidden", false);
+  thankYouMessage.setAttribute("data-hidden", true);
 });

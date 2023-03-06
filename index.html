@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- STYLES -->
 <link rel="stylesheet" href="styles/style-new.css">  
 <script src="/js/script.js" defer></script>
 
@@ -63,10 +65,16 @@
       </div>
       <!-- CONFIRM BUTTON -->
       <div class="form__group">
-        <button type="submit" class="form__btn">Confirm</button>
-      </div>
-      
+        <button type="submit" class="btn form__btn">Confirm</button>
+      </div>      
     </form>
+  </article>
+
+  <article class="complete" data-hidden="true">
+    <img class="complete__icon" src="/images/icon-complete.svg" alt="complete icon">
+    <h2 class="complete__thank-you">Thank you!</h2>
+    <p>We've added your card details</p>
+    <button class="btn btn-continue">Continue</button>
   </article>
 </main>
 </body>
